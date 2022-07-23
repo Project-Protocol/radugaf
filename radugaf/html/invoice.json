@@ -1,0 +1,75 @@
+{
+  "document_provider": {
+    "style": {
+      "color": "#000000",
+      "font-size": "12px",
+      "font-family": "Arial, Helvetica, sans-serif",
+      "font-weight": "normal",
+      "font-style": "normal",
+      "text-decoration": "none"
+    },
+    "title": {
+      "content": "Project Protocol SRL",
+      "style": {
+        "font_size": "12pt",
+        "font_family": "Arial",
+        "font_style": "bold",
+        "font_color": "#000000"
+      }
+    },
+    "address": {
+      "content": "Some random address",
+      "style": {
+        "font_size": "12pt",
+        "font_family": "Arial",
+        "font_style": "bold",
+        "font_color": "#000000"
+      }
+    },
+    "phone": {
+      "content": "123456798",
+      "style": {
+        "font_size": "12pt",
+        "font_family": "Arial",
+        "font_style": "bold",
+        "font_color": "#000000"
+      }
+    },
+    "email": {
+      "content": "email@email.com",
+      "style": {
+        "font_size": "12pt",
+        "font_family": "Arial",
+        "font_style": "bold",
+        "font_color": "#000000"
+      }
+    },
+    "is_vat_payer": {
+      "content": "true",
+      "style": {
+        "font_size": "12pt",
+        "font_family": "Arial",
+        "font_style": "bold",
+        "font_color": "#000000"
+      }
+    },
+    "identification_id": {
+      "content": "123456",
+      "style": {
+        "font_size": "12pt",
+        "font_family": "Arial",
+        "font_style": "bold",
+        "font_color": "#000000"
+      }
+    },
+    "identification_number": {
+      "content": "J2022/123456/caca",
+      "style": {
+        "font_size": "12pt",
+        "font_family": "Arial",
+        "font_style": "bold",
+        "font_color": "#000000"
+      }
+    }
+  }
+}

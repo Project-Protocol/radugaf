@@ -1,0 +1,20 @@
+Metadata-Version: 2.1
+Name: radu
+Version: 0.0.1
+Summary: A document generator
+Home-page: UNKNOWN
+Author: Radu Gafita
+Author-email: radugaf@email.com
+License: UNKNOWN
+Keywords: python,first package
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Education
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+License-File: LICENSE
+
+A more detailed description about the document generator
+

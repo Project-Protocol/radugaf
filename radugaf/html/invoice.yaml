@@ -1,0 +1,8 @@
+documentProviderFields:
+  title: Project Protocol SRL
+  address: Some random address
+  phone: 123456798
+  email: email@email.com
+  is_vat_payer: true
+  identification_id: 123456
+  identification_number: J2022/123456/caca
