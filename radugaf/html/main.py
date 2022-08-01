@@ -12,8 +12,9 @@ from dataclasses import dataclass
 from inspect import signature
 from typing import Dict, List, Union
 
-from dataclass_wizard import JSONFileWizard, YAMLWizard
+from dataclass_wizard import JSONFileWizard
 from domonic import style
+from domonic.html import li, span, ul
 
 
 def camel_to_dashed(text: str) -> str:
@@ -25,12 +26,15 @@ def underscore_to_camel(text: str) -> str:
 
 
 @dataclass
-class DocumentProvider(YAMLWizard):
-    document_provider_fields: DocumentProviderFields
+class Document(JSONFileWizard):
+    version: str
+    document_type: str
+    created_at: str
+    document_provider: DocumentProvider
 
 
 @dataclass
-class DocumentProviderFields(YAMLWizard, JSONFileWizard):
+class DocumentProvider(JSONFileWizard):
     title: str
     address: str
     phone: str
@@ -57,7 +61,7 @@ class StyleAttributes:
 
     params = {'user_id': 1, 'body': 'foo', 'bar': 'baz', 'amount': 10}
     styles = StyleAttributes.from_kwargs(**params)
-    print(styles.user_id)
+    print(styles.whatever)
     '''
 
     @classmethod
@@ -95,12 +99,12 @@ class Tools:
         self.path = path
 
     @property
-    def data_from_yaml_file(self) -> DocumentProviderFields:
-        return DocumentProviderFields.from_yaml_file(self.path)
+    def document_from_json_file(self) -> Document:
+        return Document.from_json_file(self.path)
 
     @property
-    def data_from_json_file(self) -> DocumentProviderFields:
-        return DocumentProviderFields.from_json_file(self.path)
+    def document_provider(self) -> DocumentProvider:
+        return self.document_from_json_file.document_provider
 
 
 class CSSGenerator(Tools):
@@ -108,46 +112,46 @@ class CSSGenerator(Tools):
         super().__init__(path)
 
     def get_css_class_names(self) -> Dict[str, str]:
-        return self.data_from_yaml_file.get_css_class_names()
+        return self.document_provider.get_css_class_names()
 
     def build_css(self, styling: str) -> style:
         css = ''
         for _, value in self.get_css_class_names().items():
             css += '.' + value + ' {'
-            css += styling  # Custom CSS goes here
+            css += styling  # TODO: Custom CSS goes here
             css += '}'
             css += '\n'
 
         return style(css)
-
-    def build_styling(self):
-        pass
 
 
 class Component(Tools):
     def __init__(self, path: str) -> None:
         super().__init__(path)
 
+    def build_document_provider(self) -> ul:
+        return ul(_class='unstyled-list').html(
+            li(_class='d-flex align-items-center').html(
+                span(_class='fw-semibold mr-05 ml-05').html(self.document_provider.title),
+            ),
+            li(_class='align-items-center').html(
+                span(_class='mr-05 ml-05').html(self.document_provider.email),
+            ),
+            li(_class='align-items-center').html(
+                span(_class='mr-05 ml-05').html(self.document_provider.address),
+            ),
+        )
+
     def build_components(self) -> List[Dict[str, str]]:
         """
-        Returns a big ass dictionary with all the information about the component
-        [
-            {
-                title: example_of_component_title,
-                return_type: div
-                content: <div>Some nested divs</div>
-                styling: Some styling here.
-            },
-            {
-                title: example_of_component_title,
-                return_type: div
-                content: <div>Some nested divs</div>
-                styling: Some styling here.
-            }
-        ]
+        [{
+            return_type: div | ul
+            title: example_of_component_title,
+            content: <div>Some nested divs</div>
+            styling: Some styling here.
+        }]
         """
-        # return div(_class='document-provider-title').html(self.data_from_yaml.title)
-        return self.data_from_yaml.get_css_class_names()
+        pass
 
 
 def generate():
@@ -155,7 +159,8 @@ def generate():
     # styles = StyleAttributes.from_kwargs(**params)
     # print(styles.to_dict())
 
-    fields = DocumentProvider.from_yaml_file('invoice.yaml')
+    # fields = Document.from_json_file('invoice.json')
+    fields = Component('invoice.json').build_document_provider()
     print(fields)
 
 
